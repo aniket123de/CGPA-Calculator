@@ -1,4 +1,14 @@
-# Getting Started with Create React App
+# CGPA Calculator
+
+A comprehensive React application for calculating Semester GPA (SGPA) and Cumulative GPA (CGPA) across multiple semesters.
+
+## Features
+
+- Track academic performance across 4 semesters
+- Calculate Semester GPA (SGPA) for each individual semester
+- Calculate Cumulative GPA (CGPA) across all semesters
+- Add multiple courses for each semester with customizable credits and grades
+- Intuitive and responsive user interface
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
