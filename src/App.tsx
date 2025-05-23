@@ -364,91 +364,6 @@ function App() {
             px: { xs: 1, sm: 2, md: 3 }
           }}
         >
-          {/* CGPA Overview Card */}
-          <motion.div
-            initial={{ y: -20, opacity: 0 }}
-            animate={{ y: 0, opacity: 1 }}
-            transition={{ duration: 0.5 }}
-          >
-            <Card sx={{ 
-              mb: { xs: 3, sm: 4 }, 
-              p: { xs: 1, sm: 2 }, 
-              borderRadius: { xs: 2, sm: 3 } 
-            }}>
-              <CardContent sx={{ px: { xs: 1, sm: 2 } }}>
-                <Grid container alignItems="center" spacing={2}>
-                  <Grid item xs={12} sm={6}>
-                    <Typography 
-                      variant="h6" 
-                      color="text.secondary" 
-                      gutterBottom 
-                      sx={{ 
-                        fontSize: { xs: '1rem', sm: '1.25rem' },
-                        textAlign: { xs: 'center', sm: 'left' }
-                      }}
-                    >
-                      Current CGPA
-                    </Typography>
-                    <Box sx={{ 
-                      display: 'flex', 
-                      alignItems: 'baseline',
-                      justifyContent: { xs: 'center', sm: 'flex-start' },
-                      mb: { xs: 2, sm: 0 }
-                    }}>
-                      <Typography 
-                        variant="h3" 
-                        component="div" 
-                        color="primary.main" 
-                        sx={{ 
-                          fontWeight: 'bold',
-                          fontSize: { xs: '2.5rem', sm: '3rem' }
-                        }}
-                      >
-                        {cgpa.toFixed(2)}
-                      </Typography>
-                      <Typography variant="subtitle1" color="text.secondary" sx={{ ml: 1 }}>
-                        / 10
-                      </Typography>
-                    </Box>
-                  </Grid>
-                  <Grid item xs={12} sm={6}>
-                    <Box>
-                      <Typography 
-                        variant="body2" 
-                        color="text.secondary" 
-                        gutterBottom
-                        sx={{ 
-                          textAlign: { xs: 'center', sm: 'left' }
-                        }}
-                      >
-                        Performance
-                      </Typography>
-                      <LinearProgress 
-                        variant="determinate" 
-                        value={cgpa * 10} 
-                        color={cgpa >= 8 ? "success" : cgpa >= 6 ? "primary" : "error"}
-                        sx={{ 
-                          height: { xs: 8, sm: 10 }, 
-                          borderRadius: 5, 
-                          mb: 1 
-                        }}
-                      />
-                      <Typography 
-                        variant="body2" 
-                        color="text.secondary"
-                        sx={{ 
-                          textAlign: { xs: 'center', sm: 'left' }
-                        }}
-                      >
-                        {cgpa >= 9 ? 'Excellent' : cgpa >= 8 ? 'Very Good' : cgpa >= 7 ? 'Good' : cgpa >= 6 ? 'Average' : 'Needs Improvement'}
-                      </Typography>
-                    </Box>
-                  </Grid>
-                </Grid>
-              </CardContent>
-            </Card>
-          </motion.div>
-          
           {/* Tabs for different views */}
           <Box sx={{ 
             borderBottom: 1, 
@@ -501,11 +416,14 @@ function App() {
                 animate={{ opacity: 1 }}
                 transition={{ duration: 0.5 }}
               >
-                <Card sx={{ 
-                  mb: { xs: 2, sm: 3 }, 
-                  borderRadius: { xs: 2, sm: 3 } 
-                }}>
-                  <CardContent sx={{ p: { xs: 2, sm: 3 } }}>
+                {/* Removed Card structure, replaced with Stack for clean stacking */}
+                <Stack spacing={3} sx={{ mb: { xs: 2, sm: 3 } }}>
+                  <Box sx={{
+                    p: { xs: 2, sm: 3 },
+                    bgcolor: 'background.paper',
+                    borderRadius: { xs: 2, sm: 3 },
+                    boxShadow: 1
+                  }}>
                     <Typography 
                       variant="h5" 
                       component="h2" 
@@ -519,7 +437,6 @@ function App() {
                       SGPA Calculator
                     </Typography>
                     <Divider sx={{ mb: { xs: 2, sm: 3 } }} />
-                    
                     <Grid container spacing={2}>
                       <Grid item xs={12} sm={6} md={4}>
                         <FormControl fullWidth variant="outlined">
@@ -560,7 +477,6 @@ function App() {
                         </FormControl>
                       </Grid>
                     </Grid>
-                    
                     <Box sx={{ mt: { xs: 2, sm: 3 } }}>
                       <Typography 
                         variant="h6" 
@@ -575,86 +491,77 @@ function App() {
                       >
                         {semesterSubjects[selectedSem].name} Subjects
                       </Typography>
-                      
-                      <Grid container spacing={2}>
+                      <Stack spacing={2}>
                         {semesterSubjects[selectedSem].subjects.map((subject, idx) => (
-                          <Grid item xs={12} sm={6} md={4} key={subject.name}>
-                            <Paper 
+                          <Stack
+                            key={subject.name}
+                            direction={{ xs: 'column', sm: 'row' }}
+                            spacing={2}
+                            alignItems={{ xs: 'stretch', sm: 'center' }}
+                            sx={{
+                              p: { xs: 1.5, sm: 2 },
+                              border: '1px solid',
+                              borderColor: 'divider',
+                              borderRadius: { xs: 1.5, sm: 2 },
+                              minHeight: 80,
+                              bgcolor: 'background.default',
+                              width: '100%'
+                            }}
+                          >
+                            <Typography 
+                              variant="body1" 
                               sx={{ 
-                                p: { xs: 1.5, sm: 2 }, 
-                                border: '1px solid', 
-                                borderColor: 'divider', 
-                                borderRadius: { xs: 1.5, sm: 2 },
-                                height: '100%',
-                                display: 'flex',
-                                flexDirection: 'column',
-                                justifyContent: 'space-between'
+                                fontWeight: 'medium',
+                                fontSize: { xs: '0.9rem', sm: '1rem' },
+                                mb: { xs: 1, sm: 0 },
+                                flex: 1
                               }}
                             >
-                              <Typography 
-                                variant="body1" 
-                                gutterBottom 
-                                sx={{ 
-                                  fontWeight: 'medium',
-                                  fontSize: { xs: '0.9rem', sm: '1rem' },
-                                  mb: { xs: 1, sm: 2 }
-                                }}
-                              >
-                                {subject.name}
-                              </Typography>
-                              <Stack 
-                                direction={isMobile ? 'column' : 'row'}
-                                alignItems={isMobile ? 'stretch' : 'center'}
-                                spacing={1.5}
-                                justifyContent={isMobile ? 'flex-start' : 'space-between'}
-                              >
-                                <Chip 
-                                  label={`${subject.credits} credits`} 
-                                  size={isMobile ? "small" : "medium"} 
-                                  color="primary" 
-                                  variant="outlined"
-                                  sx={{ 
-                                    height: { xs: '24px', sm: '32px' },
-                                    '& .MuiChip-label': {
-                                      px: { xs: 1, sm: 1.5 }
-                                    }
-                                  }}
-                                />
-                                <TextField
-                                  label="Grade"
-                                  variant="outlined"
-                                  size={isMobile ? "small" : "medium"}
-                                  value={grades[idx]}
-                                  onChange={e => handleGradeChange(idx, e.target.value)}
-                                  placeholder="0-10"
-                                  type="text"
-                                  inputMode="numeric"
-                                  inputProps={{ 
-                                    maxLength: 2, 
-                                    pattern: "^(10|[0-9])$",
-                                    style: { 
-                                      textAlign: 'center',
-                                      fontSize: isMobile ? '1rem' : '1.1rem',
-                                      padding: isMobile ? '8px' : '14px'
-                                    }
-                                  }}
-                                  sx={{ 
-                                    width: { xs: 70, sm: 80 },
-                                    ml: 'auto'
-                                  }}
-                                />
-                              </Stack>
-                            </Paper>
-                          </Grid>
+                              {subject.name}
+                            </Typography>
+                            <Chip 
+                              label={`${subject.credits} credits`} 
+                              size={isMobile ? "small" : "medium"} 
+                              color="primary" 
+                              variant="outlined"
+                              sx={{ 
+                                height: { xs: '24px', sm: '32px' },
+                                '& .MuiChip-label': {
+                                  px: { xs: 1, sm: 1.5 }
+                                }
+                              }}
+                            />
+                            <TextField
+                              label="Grade"
+                              variant="outlined"
+                              size={isMobile ? "small" : "medium"}
+                              value={grades[idx]}
+                              onChange={e => handleGradeChange(idx, e.target.value)}
+                              placeholder="0-10"
+                              type="text"
+                              inputMode="numeric"
+                              inputProps={{ 
+                                maxLength: 2, 
+                                pattern: "^(10|[0-9])$",
+                                style: { 
+                                  textAlign: 'center',
+                                  fontSize: isMobile ? '1rem' : '1.1rem',
+                                  padding: isMobile ? '8px' : '14px'
+                                }
+                              }}
+                              sx={{ 
+                                width: { xs: 70, sm: 80 },
+                                ml: 'auto'
+                              }}
+                            />
+                          </Stack>
                         ))}
-                      </Grid>
-                      
+                      </Stack>
                       {loading && (
                         <Box sx={{ width: '100%', mt: 3 }}>
                           <LinearProgress />
                         </Box>
                       )}
-                      
                       <Stack 
                         direction={{ xs: 'column', sm: 'row' }} 
                         spacing={2}
@@ -679,7 +586,6 @@ function App() {
                         >
                           Reset Grades
                         </Button>
-                        
                         <Button 
                           variant="contained" 
                           color="primary" 
@@ -698,7 +604,6 @@ function App() {
                           Calculate SGPA
                         </Button>
                       </Stack>
-                      
                       {saveStatus && (
                         <Fade in={!!saveStatus}>
                           <Typography 
@@ -711,37 +616,35 @@ function App() {
                         </Fade>
                       )}
                     </Box>
-                  </CardContent>
-                </Card>
-                
-                {sgpa > 0 && (
-                  <motion.div
-                    initial={{ y: 20, opacity: 0 }}
-                    animate={{ y: 0, opacity: 1 }}
-                    transition={{ duration: 0.5, delay: 0.2 }}
-                  >
-                    <Card 
-                      sx={{ 
-                        mb: { xs: 2, sm: 3 }, 
-                        bgcolor: 'primary.light', 
-                        color: 'white', 
-                        borderRadius: { xs: 2, sm: 3 },
-                        overflow: 'hidden'
-                      }}
+                  </Box>
+                  {sgpa > 0 && (
+                    <motion.div
+                      initial={{ y: 20, opacity: 0 }}
+                      animate={{ y: 0, opacity: 1 }}
+                      transition={{ duration: 0.5, delay: 0.2 }}
                     >
                       <Box 
                         sx={{ 
-                          position: 'absolute', 
-                          top: 0, 
-                          right: 0, 
-                          width: { xs: '70px', sm: '120px' },
-                          height: { xs: '70px', sm: '120px' },
-                          opacity: 0.15,
-                          background: 'radial-gradient(circle, rgba(255,255,255,0.8) 0%, rgba(255,255,255,0) 70%)'
-                        }} 
-                      />
-                      
-                      <CardContent sx={{ position: 'relative', p: { xs: 2, sm: 3 } }}>
+                          mb: { xs: 2, sm: 3 }, 
+                          bgcolor: 'primary.light', 
+                          color: 'white', 
+                          borderRadius: { xs: 2, sm: 3 },
+                          overflow: 'hidden',
+                          position: 'relative',
+                          p: { xs: 2, sm: 3 }
+                        }}
+                      >
+                        <Box 
+                          sx={{ 
+                            position: 'absolute', 
+                            top: 0, 
+                            right: 0, 
+                            width: { xs: '70px', sm: '120px' },
+                            height: { xs: '70px', sm: '120px' },
+                            opacity: 0.15,
+                            background: 'radial-gradient(circle, rgba(255,255,255,0.8) 0%, rgba(255,255,255,0) 70%)'
+                          }} 
+                        />
                         <Grid container alignItems="center" spacing={2}>
                           <Grid item xs={12} md={6}>
                             <Box sx={{ textAlign: { xs: 'center', md: 'left' }, mb: { xs: 2, md: 0 } }}>
@@ -814,10 +717,10 @@ function App() {
                             </Typography>
                           </Grid>
                         </Grid>
-                      </CardContent>
-                    </Card>
-                  </motion.div>
-                )}
+                      </Box>
+                    </motion.div>
+                  )}
+                </Stack>
               </motion.div>
             )}
           </div>
