@@ -1,191 +1,208 @@
-/* Global styles */
+/* Modern Global Styles */
 body {
   margin: 0;
   padding: 0;
-  font-family: 'Poppins', 'Roboto', 'Segoe UI', 'Helvetica Neue', sans-serif;
+  font-family: 'Inter', 'Roboto', 'Segoe UI', 'Helvetica Neue', sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   overflow-x: hidden;
   -webkit-tap-highlight-color: transparent;
 }
 
-/* For animation and transition effects */
+/* Smooth transitions for interactive elements */
 * {
-  transition: all 0.2s ease;
   box-sizing: border-box;
+}
+
+button,
+a,
+.MuiButton-root,
+.MuiChip-root,
+.MuiCard-root {
+  transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
 }
 
 /* Let Material UI handle app layout */
 .App {
   min-height: 100vh;
-  background-color: #f5f5f5;
 }
 
-/* Responsive styles */
+/* Mobile Responsive Touch Targets */
 @media (max-width: 600px) {
-  /* Override touch target size for mobile devices */
+  /* Ensure proper touch targets for accessibility */
   button, 
   input,
   select,
-  a {
-    min-height: 48px;
+  a,
+  .MuiButton-root,
+  .MuiIconButton-root {
+    min-height: 44px;
     touch-action: manipulation;
+    -webkit-tap-highlight-color: transparent;
   }
   
-  /* Fix mobile form elements with increased tap targets */
-  .MuiInputBase-root {
-    margin: 4px 0;
-  }
-  
-  /* Ensure proper spacing in mobile views */
+  /* Better spacing for mobile */
   .MuiCardContent-root {
-    padding: 16px !important;
+    padding: 20px !important;
+  }
+  
+  /* Smooth scrolling on mobile */
+  * {
+    -webkit-overflow-scrolling: touch;
   }
 }
 
-.cgpa-display {
-  background-color: #f8f9fa;
-  border-radius: 8px;
-  padding: 1rem;
-  margin-bottom: 2rem;
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-}
+/* Modern Component Styles - Clean and Flat */
 
-.cgpa-display h2 {
-  margin: 0;
-  color: #343a40;
-}
-
-.semester-container {
-  background-color: #ffffff;
-  border-radius: 8px;
-  padding: 1.5rem;
-  margin-bottom: 2rem;
-  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
-}
-
-.semester-container h3 {
-  color: #495057;
-  margin-top: 0;
-  border-bottom: 1px solid #e9ecef;
-  padding-bottom: 0.5rem;
-  text-align: left;
-}
-
-.semester-sgpa {
-  font-weight: bold;
-  margin-bottom: 1rem;
-  text-align: right;
-  color: #0066cc;
-}
-
-.courses-table {
-  width: 100%;
-  border-collapse: collapse;
-  margin-bottom: 1rem;
-}
-
-.courses-table th {
-  background-color: #f1f3f5;
-  padding: 10px;
-  text-align: left;
-  font-weight: 600;
-  color: #495057;
-}
-
-.courses-table td {
-  padding: 8px;
-  border-top: 1px solid #e9ecef;
-}
-
-.courses-table input,
-.courses-table select {
-  width: 100%;
-  padding: 8px;
-  border: 1px solid #ced4da;
-  border-radius: 4px;
-  box-sizing: border-box;
-}
-
-.courses-table input:focus,
-.courses-table select:focus {
-  border-color: #86b7fe;
-  outline: none;
-  box-shadow: 0 0 0 0.2rem rgb(13 110 253 / 25%);
-}
-
-button {
-  padding: 8px 16px;
-  border: none;
-  border-radius: 4px;
-  cursor: pointer;
-  font-weight: 500;
-  transition: background-color 0.2s;
-}
-
-.btn-add {
-  background-color: #28a745;
-  color: white;
-  margin-right: 10px;
-}
-
-.btn-add:hover {
-  background-color: #218838;
-}
-
-.btn-remove {
-  background-color: #dc3545;
-  color: white;
-}
-
-.btn-remove:hover {
-  background-color: #c82333;
-}
-
-.btn-calculate {
-  background-color: #0d6efd;
-  color: white;
-}
-
-.btn-calculate:hover {
-  background-color: #0b5ed7;
-}
-
-.semester-actions {
+/* Utility Classes */
+.flex-center {
   display: flex;
-  justify-content: flex-end;
-  gap: 10px;
-  margin-top: 1rem;
+  align-items: center;
+  justify-content: center;
 }
 
-.calculate-cgpa {
-  margin-top: 2rem;
+.text-truncate {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
 }
 
-.btn-calculate-cgpa {
-  background-color: #6610f2;
-  color: white;
-  font-size: 1.1rem;
-  padding: 10px 20px;
+/* Card Enhancements */
+.card-hover {
+  cursor: pointer;
+  transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
 }
 
-.btn-calculate-cgpa:hover {
-  background-color: #560bd0;
+.card-hover:hover {
+  transform: translateY(-2px);
 }
 
-/* Make the design responsive */
+.card-hover:active {
+  transform: translateY(0);
+}
+
+/* Focus States - Better accessibility */
+button:focus-visible,
+input:focus-visible,
+select:focus-visible,
+a:focus-visible,
+.MuiButton-root:focus-visible {
+  outline: 2px solid #2563eb;
+  outline-offset: 2px;
+}
+
+/* Loading States */
+@keyframes shimmer {
+  0% {
+    background-position: -1000px 0;
+  }
+  100% {
+    background-position: 1000px 0;
+  }
+}
+
+.skeleton {
+  animation: shimmer 2s infinite linear;
+  background: linear-gradient(
+    to right,
+    #f0f0f0 4%,
+    #f8f8f8 25%,
+    #f0f0f0 36%
+  );
+  background-size: 1000px 100%;
+}
+
+/* Responsive Grid Improvements */
 @media (max-width: 768px) {
-  .courses-table {
-    font-size: 14px;
+  .mobile-stack > * {
+    width: 100% !important;
+    margin-bottom: 12px;
   }
   
-  .courses-table th,
-  .courses-table td {
-    padding: 6px;
+  /* Improve mobile form spacing */
+  .MuiFormControl-root {
+    margin-bottom: 16px;
+  }
+}
+
+@media (max-width: 600px) {
+  /* Better mobile padding */
+  .MuiContainer-root {
+    padding-left: 16px;
+    padding-right: 16px;
   }
   
-  button {
-    padding: 6px 12px;
-    font-size: 14px;
+  /* Improve touch interactions */
+  .MuiButton-root {
+    min-height: 44px;
+    padding: 10px 20px;
+  }
+  
+  /* Stack buttons vertically on mobile */
+  .button-group {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+  }
+  
+  .button-group > button {
+    width: 100%;
+  }
+}
+
+/* Dark Mode Support */
+@media (prefers-color-scheme: dark) {
+  .skeleton {
+    background: linear-gradient(
+      to right,
+      #1e293b 4%,
+      #334155 25%,
+      #1e293b 36%
+    );
+  }
+}
+
+/* Animations */
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+@keyframes slideUp {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.animate-fade-in {
+  animation: fadeIn 0.3s ease;
+}
+
+.animate-slide-up {
+  animation: slideUp 0.4s ease;
+}
+
+/* Print Styles */
+@media print {
+  .no-print {
+    display: none !important;
+  }
+  
+  body {
+    background: white !important;
+  }
+  
+  .MuiCard-root {
+    box-shadow: none !important;
+    border: 1px solid #ddd !important;
   }
 }

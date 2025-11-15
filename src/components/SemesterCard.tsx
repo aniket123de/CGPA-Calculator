@@ -6,7 +6,7 @@ import {
   TableHead, TableRow, Paper, TextField, Select, 
   MenuItem, IconButton, Button, Box, Chip, 
   FormControl, InputLabel, LinearProgress, Avatar,
-  Collapse, useTheme
+  Collapse, useTheme, Stack
 } from '@mui/material';
 import { 
   Delete as DeleteIcon, 
@@ -103,28 +103,54 @@ const SemesterCard: React.FC<SemesterCardProps> = ({
       animate="visible"
     >
       <Card 
-        elevation={3} 
+        elevation={2} 
         sx={{ 
           mb: 3,
-          borderRadius: 2,
-          overflow: 'visible'
+          borderRadius: { xs: 2, sm: 3 },
+          overflow: 'hidden',
+          border: '1px solid',
+          borderColor: 'divider',
+          transition: 'all 0.2s ease',
+          '&:hover': {
+            boxShadow: 3,
+          }
         }}
       >
         <CardHeader
           avatar={
-            <Avatar sx={{ bgcolor: getSGPAColor(semester.sgpa) }}>
-              <SchoolIcon />
+            <Avatar 
+              sx={{ 
+                bgcolor: getSGPAColor(semester.sgpa),
+                width: { xs: 40, sm: 48 },
+                height: { xs: 40, sm: 48 }
+              }}
+            >
+              <SchoolIcon fontSize={isMobile ? 'small' : 'medium'} />
             </Avatar>
           }
           title={
-            <Box sx={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
-              <Typography variant="h6" component="div">
+            <Box sx={{ 
+              display: 'flex', 
+              alignItems: 'center', 
+              justifyContent: 'space-between',
+              flexWrap: 'wrap',
+              gap: 1
+            }}>
+              <Typography 
+                variant="h6" 
+                component="div"
+                sx={{ 
+                  fontWeight: 600,
+                  fontSize: { xs: '1rem', sm: '1.25rem' }
+                }}
+              >
                 Semester {semesterIndex + 1}
               </Typography>
               <Chip
                 label={`SGPA: ${semester.sgpa.toFixed(2)}`}
                 color={semester.sgpa >= 7 ? "success" : semester.sgpa >= 5 ? "warning" : "error"}
-                sx={{ fontWeight: 'bold' }}
+                size={isMobile ? 'small' : 'medium'}
+                sx={{ fontWeight: 600 }}
               />
             </Box>
           }
@@ -133,10 +159,15 @@ const SemesterCard: React.FC<SemesterCardProps> = ({
               onClick={() => setExpanded(!expanded)}
               aria-expanded={expanded}
               aria-label="toggle expand"
+              size={isMobile ? 'small' : 'medium'}
             >
               {expanded ? <ExpandLessIcon /> : <ExpandMoreIcon />}
             </IconButton>
           }
+          sx={{ 
+            pb: 1,
+            px: { xs: 2, sm: 3 }
+          }}
         />
         
         {/* Progress bar for SGPA visualization */}
@@ -144,86 +175,144 @@ const SemesterCard: React.FC<SemesterCardProps> = ({
           variant="determinate" 
           value={sgpaProgress} 
           color={semester.sgpa >= 7 ? "success" : semester.sgpa >= 5 ? "warning" : "error"}
-          sx={{ height: 8, mx: 2 }}
+          sx={{ 
+            height: { xs: 6, sm: 8 },
+            mx: { xs: 2, sm: 3 }
+          }}
         />
         
         <Collapse in={expanded} timeout="auto" unmountOnExit>
-          <CardContent>
-            <Box sx={{ overflowX: 'auto' }}>
+          <CardContent sx={{ px: { xs: 2, sm: 3 }, pt: 3 }}>
+            <Box>
               <Grid container spacing={2}>
                 {semester.courses.map((course, courseIndex) => (
                   <Grid item xs={12} key={courseIndex}>
-                    <Paper sx={{ p: 2, borderRadius: 2, mb: 2, display: 'flex', flexDirection: 'column', alignItems: 'stretch' }}>
-                      <Typography variant="body1" gutterBottom sx={{ fontWeight: 'medium', mb: 1, minHeight: 24 }}>
-                        {course.name || `Course ${courseIndex + 1}`}
-                      </Typography>
-                      <Chip
-                        label={`${course.credits || 0} credits`}
-                        size={isMobile ? 'small' : 'medium'}
-                        color="primary"
-                        variant="outlined"
-                        sx={{ mb: 1, alignSelf: 'flex-start', minHeight: 28 }}
-                      />
-                      <Box sx={{ display: 'flex', flexDirection: isMobile ? 'column' : 'row', gap: 1, alignItems: isMobile ? 'stretch' : 'center', width: '100%' }}>
-                        <FormControl fullWidth size="small" sx={{ mb: isMobile ? 1 : 0, minHeight: 40 }}>
-                          <Select
-                            value={course.grade}
-                            onChange={e => handleGradeChange(courseIndex, e)}
-                            displayEmpty
-                          >
-                            <MenuItem value=""><em>Grade</em></MenuItem>
-                            {gradeOptions.map(option => (
-                              <MenuItem key={option.value} value={option.value} sx={{ color: option.color }}>
-                                {option.label}
-                              </MenuItem>
-                            ))}
-                          </Select>
-                        </FormControl>
-                        <TextField
-                          fullWidth
+                    <Paper 
+                      elevation={0}
+                      sx={{ 
+                        p: { xs: 2, sm: 2.5 }, 
+                        borderRadius: 2, 
+                        border: '1px solid',
+                        borderColor: 'divider',
+                        bgcolor: 'background.default',
+                        transition: 'all 0.2s ease',
+                        '&:hover': {
+                          borderColor: 'primary.main',
+                          boxShadow: 1
+                        }
+                      }}
+                    >
+                      <Box sx={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start', mb: 2 }}>
+                        <Box sx={{ flex: 1 }}>
+                          <TextField
+                            fullWidth
+                            variant="standard"
+                            value={course.name}
+                            onChange={e => handleNameChange(courseIndex, e as React.ChangeEvent<HTMLInputElement>)}
+                            placeholder="Course name"
+                            sx={{ 
+                              mb: 1.5,
+                              '& .MuiInput-root': {
+                                fontSize: { xs: '0.95rem', sm: '1rem' },
+                                fontWeight: 500
+                              }
+                            }}
+                          />
+                          <Chip
+                            label={`${course.credits || 0} credits`}
+                            size="small"
+                            color="primary"
+                            variant="outlined"
+                            sx={{ fontWeight: 500 }}
+                          />
+                        </Box>
+                        <IconButton 
+                          color="error" 
+                          onClick={() => removeCourse(semesterIndex, courseIndex)} 
                           size="small"
-                          type="number"
-                          value={course.credits || ''}
-                          onChange={e => handleCreditsChange(courseIndex, e as React.ChangeEvent<HTMLInputElement>)}
-                          placeholder="Credits"
-                          inputProps={{ min: 0, max: 10, style: { textAlign: 'center' } }}
-                          sx={{ minHeight: 40 }}
-                        />
+                          sx={{ ml: 1 }}
+                        >
+                          <DeleteIcon fontSize="small" />
+                        </IconButton>
                       </Box>
-                      <IconButton color="error" onClick={() => removeCourse(semesterIndex, courseIndex)} size={isMobile ? 'small' : 'medium'} sx={{ alignSelf: 'flex-end', mt: 1 }}>
-                        <DeleteIcon />
-                      </IconButton>
+                      
+                      <Grid container spacing={1.5}>
+                        <Grid item xs={12} sm={6}>
+                          <FormControl fullWidth size={isMobile ? 'medium' : 'small'}>
+                            <InputLabel>Grade</InputLabel>
+                            <Select
+                              value={course.grade}
+                              label="Grade"
+                              onChange={e => handleGradeChange(courseIndex, e)}
+                            >
+                              {gradeOptions.map(option => (
+                                <MenuItem key={option.value} value={option.value}>
+                                  <Box sx={{ display: 'flex', alignItems: 'center', gap: 1 }}>
+                                    <Box 
+                                      sx={{ 
+                                        width: 8, 
+                                        height: 8, 
+                                        borderRadius: '50%', 
+                                        bgcolor: option.color 
+                                      }} 
+                                    />
+                                    {option.label}
+                                  </Box>
+                                </MenuItem>
+                              ))}
+                            </Select>
+                          </FormControl>
+                        </Grid>
+                        <Grid item xs={12} sm={6}>
+                          <TextField
+                            fullWidth
+                            size={isMobile ? 'medium' : 'small'}
+                            type="number"
+                            label="Credits"
+                            value={course.credits || ''}
+                            onChange={e => handleCreditsChange(courseIndex, e as React.ChangeEvent<HTMLInputElement>)}
+                            inputProps={{ min: 0, max: 10, style: { textAlign: 'center' } }}
+                          />
+                        </Grid>
+                      </Grid>
                     </Paper>
                   </Grid>
                 ))}
               </Grid>
             </Box>
 
-            <Grid container spacing={2} justifyContent="space-between" sx={{ mt: 2 }}>
-              <Grid item xs={12} sm={6} md={4}>
-                <Button
-                  variant="contained"
-                  startIcon={<AddIcon />}
-                  onClick={() => addCourse(semesterIndex)}
-                  size={isMobile ? "small" : "medium"}
-                  fullWidth={isMobile}
-                >
-                  Add Course
-                </Button>
-              </Grid>
-              <Grid item xs={12} sm={6} md={4}>
-                <Button
-                  variant="contained"
-                  color="primary"
-                  startIcon={<CalculateIcon />}
-                  onClick={() => calculateSGPA(semesterIndex)}
-                  size={isMobile ? "small" : "medium"}
-                  fullWidth={isMobile}
-                >
-                  Calculate SGPA
-                </Button>
-              </Grid>
-            </Grid>
+            <Stack 
+              direction={{ xs: 'column', sm: 'row' }} 
+              spacing={2} 
+              justifyContent="space-between"
+              sx={{ mt: 3 }}
+            >
+              <Button
+                variant="outlined"
+                startIcon={<AddIcon />}
+                onClick={() => addCourse(semesterIndex)}
+                fullWidth={isMobile}
+                sx={{ 
+                  py: 1.5,
+                  minHeight: { xs: 48, sm: 'auto' }
+                }}
+              >
+                Add Course
+              </Button>
+              <Button
+                variant="contained"
+                color="primary"
+                startIcon={<CalculateIcon />}
+                onClick={() => calculateSGPA(semesterIndex)}
+                fullWidth={isMobile}
+                sx={{ 
+                  py: 1.5,
+                  minHeight: { xs: 48, sm: 'auto' }
+                }}
+              >
+                Calculate SGPA
+              </Button>
+            </Stack>
           </CardContent>
         </Collapse>
       </Card>

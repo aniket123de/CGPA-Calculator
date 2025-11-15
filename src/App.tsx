@@ -662,25 +662,16 @@ function App() {
                       <Box 
                         sx={{ 
                           mb: { xs: 2, sm: 3 }, 
-                          bgcolor: 'primary.light', 
-                          color: 'white', 
+                          bgcolor: 'primary.main', 
+                          color: 'primary.contrastText', 
                           borderRadius: { xs: 2, sm: 3 },
                           overflow: 'hidden',
                           position: 'relative',
-                          p: { xs: 2, sm: 3 }
+                          p: { xs: 3, sm: 4 },
+                          border: '1px solid',
+                          borderColor: 'primary.dark',
                         }}
                       >
-                        <Box 
-                          sx={{ 
-                            position: 'absolute', 
-                            top: 0, 
-                            right: 0, 
-                            width: { xs: '70px', sm: '120px' },
-                            height: { xs: '70px', sm: '120px' },
-                            opacity: 0.15,
-                            background: 'radial-gradient(circle, rgba(255,255,255,0.8) 0%, rgba(255,255,255,0) 70%)'
-                          }} 
-                        />
                         <Grid container alignItems="center" spacing={2}>
                           <Grid item xs={12} md={6}>
                             <Box sx={{ textAlign: { xs: 'center', md: 'left' }, mb: { xs: 2, md: 0 } }}>
@@ -913,29 +904,15 @@ function App() {
                         <Box 
                           sx={{ 
                             mt: { xs: 3, sm: 4 }, 
-                            p: { xs: 2, sm: 3 }, 
+                            p: { xs: 3, sm: 4 }, 
                             bgcolor: 'background.paper', 
-                            borderRadius: { xs: 1.5, sm: 2 }, 
-                            border: '1px dashed', 
-                            borderColor: 'divider',
+                            borderRadius: { xs: 2, sm: 3 }, 
+                            border: '2px solid', 
+                            borderColor: 'primary.main',
                             position: 'relative',
-                            overflow: 'hidden'
                           }}
                         >
-                          <Box 
-                            sx={{ 
-                              position: 'absolute',
-                              width: '120px',
-                              height: '120px',
-                              borderRadius: '50%',
-                              background: theme => `radial-gradient(circle, ${theme.palette.primary.light}22 0%, ${theme.palette.primary.light}00 70%)`,
-                              top: '-20px',
-                              right: '-20px',
-                              zIndex: 0
-                            }}
-                          />
-                          
-                          <Box sx={{ position: 'relative', zIndex: 1 }}>
+                          <Box>
                             <Typography 
                               variant="h6" 
                               gutterBottom
