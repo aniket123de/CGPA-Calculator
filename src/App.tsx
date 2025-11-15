@@ -1,6 +1,6 @@
 import React, { useState, useEffect, useMemo } from 'react';
 import './App.css';
-import { calculateSem1SGPA, calculateSem2SGPA, calculateSem3SGPA, calculateSem4SGPA, calculateCumulativeGPA, calculateSemesterGPA } from './utils/cgpaCalculator';
+import { calculateSem1SGPA, calculateSem2SGPA, calculateSem3SGPA, calculateSem4SGPA, calculateSem5SGPA, calculateSem6SGPA, calculateCumulativeGPA, calculateSemesterGPA } from './utils/cgpaCalculator';
 import { ThemeProvider } from '@mui/material/styles';
 import createAppTheme from './theme/theme';
 import useResponsive from './hooks/useResponsive';
@@ -105,6 +105,42 @@ const semesterSubjects: SemesterData[] = [
     calc: calculateSem4SGPA,
     color: '#ff9800',
     icon: 'code'
+  },
+  {
+    id: 5,
+    name: 'Semester 5',
+    subjects: [
+      { name: 'OOPS', credits: 3 },
+      { name: 'SOFTWARE ENGINEERING', credits: 3 },
+      { name: 'AI', credits: 3 },
+      { name: 'OS', credits: 3 },
+      { name: 'COMPILER DESIGN', credits: 3 },
+      { name: 'INDUSTRIAL MANAGEMENT', credits: 3 },
+      { name: 'OOPS Lab', credits: 2 },
+      { name: 'SOFTWARE Lab', credits: 2 },
+      { name: 'OS Lab', credits: 2 }
+    ],
+    calc: calculateSem5SGPA,
+    color: '#9c27b0',
+    icon: 'development'
+  },
+  {
+    id: 6,
+    name: 'Semester 6',
+    subjects: [
+      { name: 'OOPS', credits: 3 },
+      { name: 'SOFTWARE ENGINEERING', credits: 3 },
+      { name: 'AI', credits: 3 },
+      { name: 'OS', credits: 3 },
+      { name: 'COMPILER DESIGN', credits: 3 },
+      { name: 'INDUSTRIAL MANAGEMENT', credits: 3 },
+      { name: 'OOPS Lab', credits: 2 },
+      { name: 'SOFTWARE Lab', credits: 2 },
+      { name: 'OS Lab', credits: 2 }
+    ],
+    calc: calculateSem6SGPA,
+    color: '#e91e63',
+    icon: 'advanced'
   }
 ];
 

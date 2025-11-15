@@ -123,6 +123,40 @@ export const calculateSem4SGPA = (grades: number[]): number => {
   return totalCredits > 0 ? totalGradePoints / totalCredits : 0;
 };
 
+/**
+ * Calculates SGPA for Semester 5 using numeric grades (out of 10)
+ * @param grades Array of grades in order: [OOPS, SOFTWARE ENGINEERING, AI, OS, COMPILER DESIGN, INDUSTRIAL MANAGEMENT, OOPS Lab, SOFTWARE Lab, OS Lab]
+ * @returns SGPA value
+ */
+export const calculateSem5SGPA = (grades: number[]): number => {
+  const credits = [3, 3, 3, 3, 3, 3, 2, 2, 2];
+  if (grades.length !== credits.length) return 0;
+  let totalGradePoints = 0;
+  let totalCredits = 0;
+  for (let i = 0; i < credits.length; i++) {
+    totalGradePoints += grades[i] * credits[i];
+    totalCredits += credits[i];
+  }
+  return totalCredits > 0 ? totalGradePoints / totalCredits : 0;
+};
+
+/**
+ * Calculates SGPA for Semester 6 using numeric grades (out of 10)
+ * @param grades Array of grades in order: [OOPS, SOFTWARE ENGINEERING, AI, OS, COMPILER DESIGN, INDUSTRIAL MANAGEMENT, OOPS Lab, SOFTWARE Lab, OS Lab]
+ * @returns SGPA value
+ */
+export const calculateSem6SGPA = (grades: number[]): number => {
+  const credits = [3, 3, 3, 3, 3, 3, 2, 2, 2];
+  if (grades.length !== credits.length) return 0;
+  let totalGradePoints = 0;
+  let totalCredits = 0;
+  for (let i = 0; i < credits.length; i++) {
+    totalGradePoints += grades[i] * credits[i];
+    totalCredits += credits[i];
+  }
+  return totalCredits > 0 ? totalGradePoints / totalCredits : 0;
+};
+
 // This placeholder will be updated with the converted C code when provided
 /* 
 export const convertedCGPAFunction = () => {
